@@ -1,0 +1,37 @@
+#! /bin/bash
+players=("strawberry" "spotify" "DeaDBeeF")
+
+function currentPlayer() {
+    for p in ${players[*]}; do
+        status=$(dbus-send --print-reply --dest=org.mpris.MediaPlayer2.$p /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.Get string:'org.mpris.MediaPlayer2.Player' string:'PlaybackStatus' 2> /dev/null | grep -E -A 1 "string"|cut -b 26-|cut -d '"' -f 1|grep -E -v ^$)
+        if [ "$status" == "Playing" ] || [ "$status" == "Paused" ]; then
+            echo $p
+        fi
+    done
+}
+
+player=$(currentPlayer)
+
+function play() {
+    dbus-send --print-reply --dest=org.mpris.MediaPlayer2.$player /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.$1 1> /dev/null
+}
+
+function status() {
+    dbus-send --print-reply --dest=org.mpris.MediaPlayer2.$player /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.Get string:'org.mpris.MediaPlayer2.Player' string:'PlaybackStatus'|grep -E -A 1 "string"|cut -b 26-|cut -d '"' -f 1|grep -E -v ^$
+}
+
+case $1 in
+next)
+    play Next
+	;;
+prev)
+    play Previous	
+	;;
+toggle)
+    play PlayPause	
+	;;
+status)
+    echo $(status)	
+	;;
+esac
+
