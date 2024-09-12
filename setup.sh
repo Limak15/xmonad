@@ -12,7 +12,7 @@ FONTS_DIR="~/.local/share/fonts"
 BACKGROUND_DIR="~/Pictures/wallpapers"
 BACKGROUND_LINK="https://gitlab.com/Limak01/wallpapers/-/raw/master/0070.jpg?ref_type=heads"
 
-dependencies="xmonad xmonad-contrib git wget polybar kitty rofi picom flameshot vlc pcmanfm slock ly xdg-user-dirs papirus-icon-theme unzip mousepad lxapearance qt6ct kvantum dunst udiskie xorg feh base-devel neovim pulseaudio pavucontrol"
+dependencies="xmonad xmonad-contrib git wget polybar kitty rofi picom flameshot vlc pcmanfm slock ly xdg-user-dirs papirus-icon-theme unzip mousepad lxapearance qt6ct kvantum dunst udiskie xorg feh base-devel neovim pulseaudio pavucontrol pamixer"
 
 command_exists() {
     command -v "$1" >/dev/null 2>&1
