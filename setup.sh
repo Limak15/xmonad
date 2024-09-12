@@ -34,10 +34,15 @@ sudo pacman -S --needed --noconfirm $dependencies
 
 #Make sure the .config folder exists
 [ ! -d ~/.config ] && mkdir -p ~/.config
+[ ! -d ~/.local/bin ] && mkdir -p ~/.local/bin
 
 #Link config
 for dir_path in "$CURR_DIR/config"/*; do
     ln -svf "$dir_path" "~/.config/$(basename "$dir_path")"
+done
+
+for script_path in "$CURR_DIR/scripts"/*; do
+    ln -svf "$script_path" "~/.local/bin/$(basename "$script_path")"
 done
 
 #Create dirs for fonts if they dont exist
