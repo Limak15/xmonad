@@ -8,20 +8,22 @@
 
 My configuration is using [rofi](https://github.com/davatorium/rofi) for application launching also it's configured to work as powermenu
 
-<div>
-    <img src="screenshots/rofi.png" alt="Dunst 1" style="display: block;">
+<p align="center" width="100%">
+    <img src="screenshots/rofi.png" alt="Dunst 1">
+</p>
+<p align="center" width="100%">
     <img src="screenshots/powermenu.png" alt="Dunst 2" style="display: block;">
-</div>
+</p>
 
 ## Volume control and notifications
 
 For notifications i use [dunst](https://github.com/dunst-project/dunst). Also when volume control keys are used notification appears with current volume, progress bar and icons
 
-<div style="display: flex;">
+<p align="center" style="display: flex;">
     <img src="screenshots/dunst2.png" alt="Dunst 1" style="width: 30%;">
     <img src="screenshots/dunst1.png" alt="Dunst 2" style="width: 30%;">
     <img src="screenshots/dunst3.png" alt="Dunst 3" style="width: 30%;">
-</div>
+</p>
 
 
 ## Audio control
