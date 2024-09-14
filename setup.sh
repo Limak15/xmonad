@@ -8,11 +8,11 @@ GREEN='\033[32m'
 CURR_DIR=$(pwd)
 FONT_NAME="MesloLGLDZ Nerd Font"
 FONT_LINK="https://github.com/ryanoasis/nerd-fonts/releases/latest/download/Meslo.zip"
-FONTS_DIR="~/.local/share/fonts"
-BACKGROUND_DIR="~/Pictures/wallpapers"
+FONTS_DIR="$HOME/.local/share/fonts"
+BACKGROUND_DIR="$HOME/Pictures/wallpapers"
 BACKGROUND_LINK="https://gitlab.com/Limak01/wallpapers/-/raw/master/0070.jpg?ref_type=heads"
 
-dependencies="xmonad xmonad-contrib git wget polybar kitty rofi picom flameshot vlc pcmanfm slock ly xdg-user-dirs papirus-icon-theme unzip mousepad lxapearance qt6ct kvantum dunst udiskie xorg feh base-devel neovim pulseaudio pavucontrol pamixer"
+dependencies=(xmonad xmonad-contrib git wget polybar kitty rofi picom flameshot vlc pcmanfm slock ly xdg-user-dirs papirus-icon-theme unzip mousepad lxappearance qt6ct kvantum dunst udiskie xorg feh base-devel neovim pulseaudio pavucontrol pamixer fontconfig)
 
 command_exists() {
     command -v "$1" >/dev/null 2>&1
@@ -30,7 +30,7 @@ if [ -f /etc/os-release ]; then
     fi
 fi
 
-sudo pacman -S --needed --noconfirm $dependencies
+sudo pacman -S --needed --noconfirm ${dependencies[@]}
 
 #Make sure the .config folder exists
 [ ! -d ~/.config ] && mkdir -p ~/.config
@@ -38,11 +38,11 @@ sudo pacman -S --needed --noconfirm $dependencies
 
 #Link config
 for dir_path in "$CURR_DIR/config"/*; do
-    ln -svf "$dir_path" "~/.config/$(basename "$dir_path")"
+    ln -svf "$dir_path" "$HOME/.config/$(basename "$dir_path")"
 done
 
 for script_path in "$CURR_DIR/scripts"/*; do
-    ln -svf "$script_path" "~/.local/bin/$(basename "$script_path")"
+    ln -svf "$script_path" "$HOME/.local/bin/$(basename "$script_path")"
 done
 
 #Create dirs for fonts if they dont exist
