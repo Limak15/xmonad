@@ -46,7 +46,7 @@ for script_path in "$CURR_DIR/scripts"/*; do
     ln -svf "$script_path" "$HOME/.local/bin/$(basename "$script_path")"
 done
 
-ln -svf "$CURR_DIR/xmonad.hs" "$HOME/.config/xmonad.hs"
+ln -svf "$CURR_DIR/xmonad.hs" "$HOME/.config/xmonad/xmonad.hs"
 
 #Create dirs for fonts if they dont exist
 [ ! -d "$FONTS_DIR" ] && mkdir -p "$FONTS_DIR" 
