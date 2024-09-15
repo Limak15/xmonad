@@ -1,16 +1,6 @@
 #! /bin/bash
-players=("strawberry" "spotify" "DeaDBeeF")
-
-function currentPlayer() {
-    for p in ${players[*]}; do
-        status=$(dbus-send --print-reply --dest=org.mpris.MediaPlayer2.$p /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.Get string:'org.mpris.MediaPlayer2.Player' string:'PlaybackStatus' 2> /dev/null | grep -E -A 1 "string"|cut -b 26-|cut -d '"' -f 1|grep -E -v ^$)
-        if [ "$status" == "Playing" ] || [ "$status" == "Paused" ]; then
-            echo $p
-        fi
-    done
-}
-
-player=$(currentPlayer)
+players=("strawberry" "spotify" "DeaDBeeF" "youtube-music")
+player=""
 
 function play() {
     dbus-send --print-reply --dest=org.mpris.MediaPlayer2.$player /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.$1 1> /dev/null
@@ -19,6 +9,25 @@ function play() {
 function status() {
     dbus-send --print-reply --dest=org.mpris.MediaPlayer2.$player /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.Get string:'org.mpris.MediaPlayer2.Player' string:'PlaybackStatus'|grep -E -A 1 "string"|cut -b 26-|cut -d '"' -f 1|grep -E -v ^$
 }
+
+for p in ${players[*]}; do
+    player=""
+
+    if [ "$p" == "youtube-music" ]; then
+        player="chromium.$(busctl --user list | grep MediaPlayer2 | grep youtube-music | awk '{print $1}' | awk -F '.' '{print $NF}')"
+    else
+        player="$p"
+    fi
+
+
+    status=$(dbus-send --print-reply --dest=org.mpris.MediaPlayer2.$player /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.Get string:'org.mpris.MediaPlayer2.Player' string:'PlaybackStatus' 2> /dev/null | grep -E -A 1 "string"|cut -b 26-|cut -d '"' -f 1|grep -E -v ^$)
+
+    if [ "$status" == "Playing" ] || [ "$status" == "Paused" ]; then
+        player="$player"
+        break
+    fi
+done
+
 
 case $1 in
 next)
